@@ -3,14 +3,14 @@
 
 class reflector 
 {
-    char wires[26];
+    int wires[26];
 
 public:
     // Constructors
-    reflector();
+    reflector(int n);
 
     void setwires(int rt);
-    char reflect(char c);
+    int reflect(int c);
 
 }; 
 

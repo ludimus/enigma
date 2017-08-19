@@ -3,156 +3,110 @@
 #include "rotor.h"
 using namespace std;
 
-
+//
+// Default constructor (should not be used)
+//
 
 rotor::rotor()
 {
     rotortype=0;
-    rotorring=0;
     rotorpos=0;
-    setwires(0);
+    ringpos=0;
+    notchpos=0;
 }
 
-rotor::rotor(int t,int r,int p)
+//
+// rotor constructor
+//
+rotor::rotor(int type,int rotor,int ring)
 {
-    rotortype=t-1;
-    rotorring=r-1;
-    rotorpos=p-1;
-    setwires(t-1);
-}
 
-
-void rotor::setwires(int rt){
-
-   char box[5][26]={{'E','K','M','F','L','G','D','Q','V','Z','N','T','O','W','Y','H','X','U','S','P','A','I','B','R','C','J'},
-                    {'A','J','D','K','S','I','R','U','X','B','L','H','W','T','M','C','Q','G','Z','N','P','Y','F','V','O','E'},
-                    {'B','D','F','H','J','L','C','P','R','T','X','V','Z','N','Y','E','I','W','G','A','K','M','U','S','Q','O'},
-                    {'E','S','O','V','P','Z','J','A','Y','Q','U','I','R','H','X','L','N','F','T','G','K','D','C','M','W','B'},
-                    {'V','Z','B','R','G','I','T','Y','U','P','S','D','N','H','L','X','A','W','M','J','Q','O','F','E','C','K'}
-                   };
-   for (int w=0;w<26;w++)
-       wires[w]=box[rt][w];
+    int turnover[5]={17,5,22,10,0};
+    int all_wires[5][26]={{4,10,12,5,11,6,3,16,21,25,13,19,14,22,24,7,23,20,18,15,0,8,1,17,2,9},
+                          {0,9,3,10,18,8,17,20,23,1,11,7,22,19,12,2,16,6,25,13,15,24,5,21,14,4},
+                          {1,3,5,7,9,11,2,15,17,19,23,21,25,13,24,4,8,22,6,0,10,12,20,18,16,14},
+                          {4,18,14,21,15,25,9,0,24,16,20,8,17,7,23,11,13,5,19,6,10,3,2,12,22,1},
+                          {21,25,1,17,6,8,19,24,20,15,18,3,13,7,11,23,0,22,12,9,16,14,5,4,2,10}
+                         };
     
-   char turnover[5]={'R','F','W','K','A'};
-   nudge=turnover[rt];
-    
-   // make reverse wires
-   char boxback[5][26];
-   for (int r=0;r<5;r++)
+    // make reverse wires
+    int all_wires_reverse[5][26];
+    for (int r=0;r<5;r++)
        for(int c=0;c<26;c++){
            int k=0;
-           while (box[r][k]!=(char(c+65))) k++;
-           boxback[r][c]=((char)(k+65));
+           while (all_wires[r][k]!=c) k++;
+           all_wires_reverse[r][c]=k;
        }
-    for(int wb=0;wb<26;wb++)
-        wiresback[wb]=boxback[rt][wb];
+    
+    // initialize rotor, ring and wires
+    rotortype=type;
+    rotorpos=rotor;
+    ringpos=(rotorpos+ring)%26;
+    rotorpos-=ring;
+    if (rotorpos<0) rotorpos+=26;     
+    
+    notchpos=turnover[type];
+
+    //set wiring and reverse wiring for rotortype
+    
+    for (int w=0;w<26;w++){
+         wires[w]=all_wires[type][w];
+         wiresback[w]=all_wires_reverse[type][w];
+    }
 }
 
-string rotor:: getwires()
-{
-    string ret="";
-    for (int i=0;i<26;i++)
-        ret.push_back(wiresback[i]);
-    return(ret);
-}
+//Getters
 
-
-
-void rotor::settype(int rt)
-{
-    rotortype=rt-1;
-    setwires(rt-1);
-}
-
-void rotor::setpos(int rp)
-{
-    rotorpos=rp-1;
-}
-
-void rotor::setpos(char rp)
-{
-    rotorpos=(int)rp-65;
-}
-
-void rotor::setring(int rp)
-{
-    rotorring=rp-1;
-    rotorpos-=rotorring;
-    if (rotorpos<0) rotorpos+=26;     //The ring offsets the rotorpos
-}
-
-string rotor::gettype()
+string rotor::getrotortype()
 {
     string ringtype[5]={"I","II","III","IV","V"};
     return ringtype[rotortype];
 }
 
-char rotor::getpos()
-{
-    return((char)(rotorpos+65));
+int rotor::getrotorpos(){ return rotorpos;}
 
-}
-
-char rotor::getwindow()
-{
-    return((char)(((rotorpos+rotorring)%26)+65));
-}
-char rotor::getring()
-{
-    return((char)(rotorring+65));
-}
+int rotor::getringpos(){ return ringpos;}
 
 
-void rotor::rotate()
+// Rotor operations
+
+void rotor::step()
 {
     rotorpos=(rotorpos+1)%26;
+    ringpos=(ringpos+1)%26;
+    cout<<"rotating..."<<rotorpos<<" " <<ringpos<<endl;
 }
 
 
-char rotor::encode(char s)
+int rotor::encode(int c) 
 {
-    cout<<"Incoming: "<<s<<endl;
-    char e=(s+rotorpos);      //adjust entry to rotorposition
-    if (e>90) e-=26;
-    cout<< "Adjusted to rotor: "<<e<<endl;
-    e=wires[e-65];        // go through the wires
-    cout<<"Wires: "<<e<<endl;
-    e=e-rotorpos;          // adjust exit to rotorposition;
-    if(e<65)e+=26;
-    cout<<"Outgoing: "<<e<<endl;
-    return (e);             // return Character
+    cout<<"Incoming: "<<c<<endl;
+    c=(c+rotorpos)%26;      //adjust entry to rotorposition
+    cout<< "Adjusted to rotor: "<<c<<endl;
+    c=wires[c];        // go through the wires
+    cout<<"Wires: "<<c<<endl;
+    c=c-rotorpos;          // adjust exit to rotorposition;
+    if(c<0)c+=26;
+    cout<<"Outgoing: "<<c<<endl;
+    return (c);             // return Character
 
 
 
 }
 
-char rotor::reverse(char s)
+int rotor::reverse(int c)
 {
-    cout<<"Revere Incoming: "<<s<<endl;
-    char e=(s+rotorpos);      //adjust entry to rotorposition
-    if (e>90) e-=26;
-    cout<< "Reverse Adjusted to rotor: "<<e<<endl;
-    e=wiresback[e-65];        // go through the wires
-    cout<<"Reverse Wires: "<<e<<endl;
-    e=e-rotorpos;          // adjust exit to rotorposition;
-    if(e<65)e+=26;
-    cout<<"Reverse Outgoing: "<<e<<endl;
-    return (e);             // return Character
+    cout<<"Reverse Incoming: "<<c<<endl;
+    c=(c+rotorpos)%26;      //adjust entry to rotorposition
+    cout<< "Reverse Adjusted to rotor: "<<c<<endl;
+    c=wiresback[c];        // go through the wiresback
+    cout<<"Reverse Wires: "<<c<<endl;
+    c=c-rotorpos;          // adjust exit to rotorposition;
+    if(c<0)c+=26;
+    cout<<"Reverse Outgoing: "<<c<<endl;
+    return (c);             // return Character
 }
 
-bool rotor::is_nudged()
-{
-    bool ret=false;
-    if (((int)nudge-65)==rotorpos)
-        ret=true;
-    return ret;    
-}
+bool rotor::has_notched() { return (ringpos==notchpos);}
 
-bool rotor::check_doublestep(){
-    bool ret=false;
-    if (((int)nudge-65)==(rotorpos+1)%26)
-
-        ret=true;
-
-    return ret;
-}
+bool rotor::is_notched() { return (((ringpos+1)%26)==notchpos);}

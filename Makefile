@@ -1,13 +1,12 @@
 CC=g++
-iCFLAGS= 
-LDFLAGS= 
-EXECUTABLE=enigma_1
+CPPFLAGS=
+LDFLAGS=
+OBJ = enigmam3.o rotor.o reflector.o
+enigma3 : $(OBJ)     
+	$(CC) -o enigmam3 $(OBJ) 
 
-enigma1 : enigma1.o rotor.o reflector.o
-	$(CC) $(LDFLAGS) -o enigma1 enigma1.o rotor.o reflector.o
-
-enigma1.o : enigma1.cpp
-	$(CC) $(CPPFLAGS) -c enigma1.cpp
+enigmam3.o : enigmam3.cpp
+	$(CC) $(CPPFLAGS) -c enigmam3.cpp
 
 rotor.o : rotor.h rotor.cpp
 	$(CC) $(CPPFLAGS) -c rotor.cpp
