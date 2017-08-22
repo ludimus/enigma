@@ -117,7 +117,7 @@ void swap_ukw(reflector& RF){
     
 }
 
-char encode_char(char c, rotor& R1, rotor& R2, rotor& R3, reflector R, plugboard& PB){
+char encode_char(char c, rotor& R1, rotor& R2, rotor& R3, reflector RF, plugboard& PB){
 
     int P=(int)c -65;       //convert char to int, enigma classes uses integers
 
@@ -125,7 +125,7 @@ char encode_char(char c, rotor& R1, rotor& R2, rotor& R3, reflector R, plugboard
     P=R3.encode(P); 
     P=R2.encode(P); 
     P=R1.encode(P); 
-    P=R.reflect(P); 
+    P=RF.reflect(P); 
     P=R1.reverse(P); 
     P=R2.reverse(P); 
     P=R3.reverse(P);
@@ -134,7 +134,7 @@ char encode_char(char c, rotor& R1, rotor& R2, rotor& R3, reflector R, plugboard
     return (char)(P+65);
 }
 
-void scramble_message(rotor& R1, rotor& R2, rotor& R3, reflector R,plugboard& PB){
+void scramble_message(rotor& R1, rotor& R2, rotor& R3, reflector RF,plugboard& PB){
     
     string m;
     char c;
@@ -147,7 +147,7 @@ void scramble_message(rotor& R1, rotor& R2, rotor& R3, reflector R,plugboard& PB
         if(isalpha(m.at(i))){
             c=toupper(m.at(i));
             rotate(R1,R2,R3); 
-            cout<<encode_char(c,R1,R2,R3,R,PB);
+            cout<<encode_char(c,R1,R2,R3,RF,PB);
         }
         else cout<<" ";
         cout<<endl;
@@ -162,12 +162,12 @@ int main()
     R2.setpos(0);
     R3.setpos(0);
 
-    reflector R(1);
+    reflector RF(1);
     plugboard PB;
     
     char c;
     while(c!='Q'){
-        display_enigma_menu(R1,R2,R3,R,PB);
+        display_enigma_menu(R1,R2,R3,RF,PB);
         cin>>c;
         c=toupper(c);
         switch(c)
@@ -181,9 +181,9 @@ int main()
             case 'C': set_rotor(R3);break;
                 
             case 'S': swap_plugs(PB);break;  
-            case 'U': swap_ukw(R);break;
+            case 'U': swap_ukw(RF);break;
             
-            case 'M': scramble_message(R1,R2,R3,R,PB);    
+            case 'M': scramble_message(R1,R2,R3,RF,PB);    
             default:;    
                 
         }

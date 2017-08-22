@@ -3,21 +3,32 @@
 #include "plugboard.h"
 using namespace std;
 
-
-
+//
+//Plugboard Constructor
+//
 plugboard::plugboard(){
     resetwires();
 }
 
+//
+// Remove all wires (0->0, 1->1etc..)
+//
 void plugboard::resetwires(){
     for (int i=0;i<26;i++)
         wires[i]=i;
 }
 
+//
+// Scrample char through plugboard
+//
 int plugboard::pass(int c){
     return (wires[c]);
 }
 
+//
+// Remove old wires on the swap positions
+// Put new wire on swap positions
+//
 void plugboard::swap(int a, int b){
     
     //remove old cables first
@@ -30,6 +41,10 @@ void plugboard::swap(int a, int b){
     wires[b]=a;
 }
 
+//
+// return a string with switched chars
+// Example: AV FG JK XY
+//
 std::string plugboard::boardinfo(){
     string s="";
     bool processed[26];
