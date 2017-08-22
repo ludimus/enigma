@@ -23,6 +23,7 @@ void display_enigma_menu(rotor& R1, rotor& R2, rotor& R3, reflector& RF, plugboa
     string rotortype[8]={"I","II","III","IV","V","VI","VII","VIII"};
     string reflectortye[4]={"B","C","B--","C--"};
     
+    cout<<endl;
     for(int i=1;i<=26;i++)cout<<"---"; cout<< endl;
     for(int i=1;i<=26;i++)cout<<std::setw(3)<<(char)(i+64); cout<< endl;
     for(int i=1;i<=26;i++)cout<<std::setw(3)<<i; cout<< endl;
@@ -137,10 +138,10 @@ void scramble_message(rotor& R1, rotor& R2, rotor& R3, reflector R,plugboard& PB
     
     string m;
     char c;
-    cout<<"Enter  message: ";
+    cout<<endl<<"Enter  message: ";
     cin.ignore();
     getline(std::cin,m);
-    cout<<"Enigma message: ";
+    cout<<endl<<"Enigma message: ";
     
     for (int i=0;i<m.length();i++)
         if(isalpha(m.at(i))){
