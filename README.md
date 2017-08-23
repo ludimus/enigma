@@ -10,11 +10,9 @@ Todo-list
 
 ## EnigmaM3 (command line Enigma M3 simulator)
 
-> Passed simple test, ringsetting test and double step sequence from the [Wikipedia Enigma rotor details] (https://en.wikipedia.org/wiki/Enigma_rotor_details)
+> Passed simple test, ringsetting test and double step sequence from the [Wikipedia Enigma rotor details](https://en.wikipedia.org/wiki/Enigma_rotor_details)
 
-> Decoded an original Enigma M3 message from [Cryptocellar](http://cryptocellar.org/Enigma/Enigma_ModernBreaking.html)
-
->Example run in: M3_example_run.txt
+> Decoded an original Enigma M3 message from [Cryptocellar](http://cryptocellar.org/Enigma/Enigma_ModernBreaking.html), example run in M3_example_run.txt
 
 
 
