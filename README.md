@@ -8,11 +8,11 @@ Todo-list
 
 
 
-## EnigmaM3 (command line ENIGMAM3 simulator)
+## EnigmaM3 (command line Enigma M3 simulator)
 
-> Seems to work ok,Tested on original scrambled messages.
+> Passed simple test, ringsetting test and double step sequence from the [Wikipedia Enigma rotor details] (https://en.wikipedia.org/wiki/Enigma_rotor_details)
 
-> original message from [link to Cryptocellar!](http://cryptocellar.org/Enigma/Enigma_ModernBreaking.html)
+> Decoded an original Enigma M3 message from [Cryptocellar](http://cryptocellar.org/Enigma/Enigma_ModernBreaking.html)
 
 >Example run in: M3_example_run.txt
 
