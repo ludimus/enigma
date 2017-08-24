@@ -134,7 +134,14 @@ void scramble_message(rotor& R1, rotor& R2, rotor& R3, reflector RF,plugboard& P
 }
 
 void show_usage(){
-    cout<<"usage"<<endl;
+    cout<<endl<<"Switches:"<<endl;
+    cout<<"-u Umkehrwalze(reflector)  : -u A"<<endl;
+    cout<<"-w Walze (Rotors and ring) : -w 1A2D4H"<<endl;
+    cout<<"-k MessageKey              : -u ANK"<<endl;
+    cout<<"-p Plugboard               : -p AB or -p AB:CD:EF"<<endl;
+    cout<<"-h This message"<<endl;
+    cout<<endl<<"use stdin and stdout for messages to encrypt"<<endl<<endl;
+    exit(0);
 }
 
 int main(int argc, char* argv[])
