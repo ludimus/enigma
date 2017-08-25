@@ -1,4 +1,3 @@
-*.o
-*.msg
-enigmaM3
-encryptM3
+build/*
+bin/*
+

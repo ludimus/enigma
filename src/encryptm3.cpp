@@ -114,25 +114,6 @@ char encode_char(char c, rotor& R1, rotor& R2, rotor& R3, reflector RF, plugboar
     return (char)(P+65);
 }
 
-void scramble_message(rotor& R1, rotor& R2, rotor& R3, reflector RF,plugboard& PB){
-    
-    string m;
-    char c;
-    cout<<endl<<"Enter  message: ";
-    cin.ignore();
-    getline(std::cin,m);
-    cout<<endl<<"Enigma message: ";
-    
-    for (int i=0;i<m.length();i++)
-        if(isalpha(m.at(i))){
-            c=toupper(m.at(i));
-            rotate(R1,R2,R3); 
-            cout<<encode_char(c,R1,R2,R3,RF,PB);
-        }
-        else cout<<" ";
-        cout<<endl;
-}
-
 void show_usage(){
     cout<<endl<<"Switches:"<<endl;
     cout<<"-u Umkehrwalze(reflector)  : -u A"<<endl;
@@ -141,13 +122,15 @@ void show_usage(){
     cout<<"-p Plugboard               : -p AB or -p AB:CD:EF"<<endl;
     cout<<"-h This message"<<endl;
     cout<<endl<<"use stdin and stdout for messages to encrypt"<<endl<<endl;
+    cout<< "Example: Reflector B, Rotors II I IV, ringstelling AAB, messagekey RTF, plugs AB CD HR MP ZX WO"<<endl;
+    cout<< "         encryptM3 -u B -w 2a1a4b -k rtf -p  ab:cd:hr:mp:zx:wo < in.txt > out.M3"<<endl<<endl;    
     exit(0);
 }
 
 int main(int argc, char* argv[])
 {
     // create Enigma M3 with defaults:
-    // Rotors I II III, ringstelling AAA, messagekey AAA, plugs none
+    // Rotors I II III, ringstelling AAA, messagekey AAA, reflector B, plugs none
     
     rotor R1(0,0);
     rotor R2(1,0);
@@ -175,18 +158,21 @@ int main(int argc, char* argv[])
     //process stdin
     string m;
     char p;
+    char numalpha=0;
     while(getline(cin, m)) {
         for (int i=0;i<m.length();i++)
-            if(isalpha(m.at(i))){
+            if(isalpha(m.at(i))) {
                 p=toupper(m.at(i));
                 rotate(R1,R2,R3); 
                 cout<<encode_char(p,R1,R2,R3,RF,PB);
-                //cout<<p;
+                numalpha++;
+                // format output 4 columns of 5 characters:
+                if((numalpha%5==0)&&(numalpha%20!=0)) cout<<" ";
+                if(numalpha%20==0) cout<<endl;
             }
-            else cout<<" ";
-    cout<<endl;
+            
     }
-
+    cout<<endl;
     
 return 0;
 }

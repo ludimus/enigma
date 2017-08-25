@@ -1,22 +1,26 @@
-TARGETS = enigmaM3 encryptM3
-CLASSES = rotor.o reflector.o plugboard.o
+CC = g++
+TARGETS = bin/enigmaM3 bin/encryptM3
+SRCDIR = src
+BUILDDIR = build
+INCDIR = include
+CLASSES = build/rotor.o build/reflector.o build/plugboard.o
 CPPFLAGS=-g -std=c++11
 
 # Header file dependencies for classes
-rotor.o : rotor.h
-reflector.o : reflector.h
-plugboard.o : plugboard.h
+#rotor.o : include/rotor.h
+#reflector.o : include/reflector.h
+#plugboard.o : include/plugboard.h
 
-all : enigmaM3 encryptM3
+all : $(TARGETS)
 
-encryptM3 : encryptm3.o $(CLASSES)
-	g++ -g -o $@ $^
+bin/encryptM3 : $(BUILDDIR)/encryptm3.o $(CLASSES)
+	$(CC) -g -o $@ $^
 
-enigmaM3 : enigmam3.o $(CLASSES)
-	g++ -g -o $@ $^
+bin/enigmaM3 : $(BUILDDIR)/enigmam3.o $(CLASSES)
+	$(CC) -g -o $@ $^
 
-%.o : %.cpp
-	g++ $(CPPFLAGS) -o $@ -c $<  
+$(BUILDDIR)/%.o : $(SRCDIR)/%.cpp
+	$(CC) $(CPPFLAGS) -I $(INCDIR) -o $@ -c $<  
 
 clean : 
-	rm -f $(CLASSES) $(TARGETS)
+	rm -f $(BUILDDIR)/* $(TARGETS)
