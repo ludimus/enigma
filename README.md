@@ -15,9 +15,8 @@ An interactive enigmaM3 simulator. All settings can be changed through a simple 
 > Decoded an original Enigma M3 message from [Cryptocellar](http://cryptocellar.org/Enigma/Enigma_ModernBreaking.html)
 
 ## bin/encryptM3 (command line Enigma M3 simulator)
-Command line encryptio tool for the M3 Enigma.
-Usage: encryptM3 -h to show options.
-stdin and stdout to process messages.
+Command line encryption/decryption tool for the M3 Enigma.
+> Usage: encryptM3 -h to show options.
 
 
 
