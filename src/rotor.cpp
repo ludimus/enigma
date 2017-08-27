@@ -1,4 +1,5 @@
-#include "rotor.h"
+#include <iostream>
+#include "rotor.hpp"
 using namespace std;
 
 // Rotor details can be found on: https://en.wikipedia.org/wiki/Enigma_rotor_details

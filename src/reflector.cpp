@@ -1,4 +1,6 @@
-#include "reflector.h"
+#include <iostream>
+#include "reflector.hpp"
+
 using namespace std;
 
 //Reflector details: https://en.wikipedia.org/wiki/Enigma_rotor_details
@@ -34,8 +36,11 @@ void reflector::init(int n)
                                  {24,17,20,7,16,18,11,3,15,23,13,6,14,10,12,8,4,1,5,25,2,22,21,9,0,19},   //B
                                  {5,21,15,9,8,0,14,24,4,3,17,25,23,22,6,2,19,10,20,16,18,1,13,12,7,11},   //C       
                                };
-    for (int w=0;w<26;w++)
-        wires[w]=all_reflectors[n][w];
+    if((n>=0)&&(n<=2))
+        for (int w=0;w<26;w++)
+            wires[w]=all_reflectors[n][w];
+    else
+        cout<<"Invalid reflector type: "<<(char)(n+65)<<endl;
 }
 
 //

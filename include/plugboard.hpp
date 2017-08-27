@@ -1,3 +1,5 @@
+#include <string>
+
 #ifndef plugboard_H
 #define plugboard_H
 
@@ -8,10 +10,16 @@ class plugboard
 public:
     // Constructors
     plugboard();
+    
+    //Plugboard configuration functions
 
     void swap(int a,int b);
-    int pass(int c);
     void resetwires();
+    
+    //pluboard operations
+    int pass(int c);
+    
+    //show current settings
     std::string boardinfo();
 
 }; 

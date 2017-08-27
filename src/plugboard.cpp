@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
-#include "plugboard.h"
+
+#include "plugboard.hpp"
 using namespace std;
 
 //
