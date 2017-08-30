@@ -1,5 +1,5 @@
 CC = g++
-TARGETS = bin/m3menu bin/m3encrypt bin/zygalski
+TARGETS = bin/m3menu bin/m3encrypt zygalski/zygalski
 SRCDIR = src
 BUILDDIR = build
 INCDIR = include
@@ -14,7 +14,7 @@ bin/m3encrypt : $(BUILDDIR)/m3encrypt.o $(CLASSES)
 bin/m3menu : $(BUILDDIR)/m3menu.o $(CLASSES)
 	$(CC) -g -o $@ $^
     
-bin/zygalski : $(BUILDDIR)/zygalski.o $(CLASSES)
+zygalski/zygalski : $(BUILDDIR)/zygalski.o $(CLASSES)
 	$(CC) -g -o $@ $^
 
 $(BUILDDIR)/%.o : $(SRCDIR)/%.cpp
