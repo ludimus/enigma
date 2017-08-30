@@ -41,7 +41,7 @@ int main(int argc, char* argv[])
                 E.setRotorpos(2,km);                // set rotorpositions manually, do not use advance function
                 E.setRotorpos(3,kr);                // sheets are calculated without notches
                 c1=E.encode(c);
-                k4=kr+4;
+                k4=kr+3;
                 if (k4 > 'Z')k4=k4-26;
                 E.setRotorpos(3,k4);
                 c4=E.encode(c);
@@ -53,8 +53,6 @@ int main(int argc, char* argv[])
         cout<<endl;
         
     }                                               //end middle key
-    cout<<endl;
-    cout<<true;
 return 0;
 }
 
