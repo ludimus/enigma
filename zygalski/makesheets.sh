@@ -7,5 +7,6 @@ for p in "${perm[@]}"
         do
             echo "./zygalski $p$x > sheets/$p$x.txt"
             ./zygalski $p$x > sheets/$p$x.txt
+            python zygtxt2png.py sheets/$p$x.txt
         done
     done
