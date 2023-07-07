@@ -114,9 +114,9 @@ int main(int argc, char* argv[])
                 E.advance(); 
                 cout<<E.encode(p);
                 numalpha++;
-                //format output 5 columns of 4 char;
-                if((numalpha%4==0)&&(numalpha%20!=20))cout<<" ";
-                if(numalpha%20==0)cout<<endl;
+                //format output 6 columns of 5 char;
+                if((numalpha%5==0)&&(numalpha%30!=30))cout<<" ";
+                if(numalpha%30==0)cout<<endl;
             }
             
     }
